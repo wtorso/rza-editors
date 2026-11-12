@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rza-editors-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install editors
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends emacs-nox neovim
+          emacs --version
+          nvim --version
+      - name: Test
+        shell: bash
+        run: bash test/run.sh
+      - name: Hygiene
+        shell: bash
+        run: |
+          git diff --check
+          test -z "$(git status --porcelain)"
