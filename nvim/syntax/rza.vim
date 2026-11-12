@@ -7,8 +7,8 @@ syn keyword rzaKeyword
     \ mov store storeb slt inc dec await print
     \ jmp brz brnz call proc casc acasc endc ret layout
     \ add sub mul div mod and or xor shl shr
-syn keyword rzaType u8 i64
-syn match rzaType "\v<[A-Z][A-Za-z0-9_]*>"
+syn keyword rzaScalarType u8 i64
+syn match rzaLayout "\v<[A-Z][A-Za-z0-9_]*>"
 syn keyword rzaConstant field
 syn match rzaRegister "\v[%%]r([0-9]|1[0-5])>"
 syn match rzaField "\]\.\zs[a-z_][a-z0-9_]*"
@@ -19,7 +19,8 @@ syn match rzaNumber "\v(^|[^A-Za-z0-9_])\zs-?0x[0-9A-Fa-f]+>"
 syn region rzaComment start=";" end="$"
 
 hi def link rzaKeyword Keyword
-hi def link rzaType Type
+hi def link rzaScalarType Special
+hi def link rzaLayout Type
 hi def link rzaConstant Constant
 hi def link rzaRegister Identifier
 hi def link rzaField Special

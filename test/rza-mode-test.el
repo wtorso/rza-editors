@@ -36,9 +36,11 @@
 (ert-deftest rza-test-layout-and-scalar-types ()
   (rza-test-with-fixture
    (should (eq (rza-test-face-at 1 7) 'font-lock-type-face))
-   (should (eq (rza-test-face-at 1 18) 'font-lock-type-face))
-   (should (eq (rza-test-face-at 1 29) 'font-lock-type-face))
-   (should (eq (rza-test-face-at 2 20) 'font-lock-type-face))))
+   (should (eq (rza-test-face-at 1 18) 'font-lock-builtin-face))
+   (should (eq (rza-test-face-at 1 29) 'font-lock-builtin-face))
+   (should (eq (rza-test-face-at 2 20) 'font-lock-type-face))
+   (should (not (eq (rza-test-face-at 1 7)
+                    (rza-test-face-at 1 18))))))
 
 (ert-deftest rza-test-registers-and-field-constant ()
   (rza-test-with-fixture

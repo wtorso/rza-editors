@@ -13,7 +13,7 @@
 
 (defconst rza-font-lock-keywords
   `((,(regexp-opt rza-opcodes 'symbols) . font-lock-keyword-face)
-    (,(regexp-opt rza-scalar-types 'symbols) . font-lock-type-face)
+    (,(regexp-opt rza-scalar-types 'symbols) . font-lock-builtin-face)
     ("\\<[A-Z][A-Za-z0-9_]*\\>" . font-lock-type-face)
     ("\\_<field\\_>" . font-lock-constant-face)
     ("%r\\(?:[0-9]\\|1[0-5]\\)\\_>" . font-lock-variable-name-face)
