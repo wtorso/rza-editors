@@ -7,7 +7,7 @@ syn keyword rzaKeyword
     \ mov store storeb slt inc dec await print
     \ jmp brz brnz call proc casc acasc endc ret layout
     \ add sub mul div mod and or xor shl shr ushr
-    \ cadd csub cmul cinc cdec
+    \ cadd csub cmul cinc cdec crc32c
 syn keyword rzaScalarType u8 i64
 syn match rzaLayout "\v<[A-Z][A-Za-z0-9_]*>"
 syn keyword rzaConstant field
