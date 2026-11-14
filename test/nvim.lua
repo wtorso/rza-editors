@@ -53,7 +53,7 @@ local opcodes = {
     "mov", "store", "storeb", "slt", "inc", "dec", "await", "print",
     "jmp", "brz", "brnz", "call", "proc", "casc", "acasc", "endc", "ret",
     "layout", "add", "sub", "mul", "div", "mod", "and", "or", "xor",
-    "shl", "shr",
+    "shl", "shr", "ushr", "cadd", "csub", "cmul", "cinc", "cdec",
 }
 
 vim.cmd("enew")
