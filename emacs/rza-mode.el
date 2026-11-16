@@ -3,7 +3,7 @@
 (require 'prog-mode)
 
 (defconst rza-opcodes
-  '("cav" "res" "med" "raise" "decay" "probe" "load" "loadb"
+  '("cav" "res" "med" "view" "raise" "decay" "probe" "load" "loadb"
     "mov" "store" "storeb" "slt" "inc" "dec" "await" "print"
     "jmp" "brz" "brnz" "call" "proc" "casc" "acasc" "endc" "ret"
     "layout" "add" "sub" "mul" "div" "mod" "and" "or" "xor"

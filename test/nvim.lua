@@ -49,7 +49,7 @@ check_group(10, 14, "rzaComment")
 check(group_at(11, 5) == "", "%r16 must not have a syntax group")
 
 local opcodes = {
-    "cav", "res", "med", "raise", "decay", "probe", "load", "loadb",
+    "cav", "res", "med", "view", "raise", "decay", "probe", "load", "loadb",
     "mov", "store", "storeb", "slt", "inc", "dec", "await", "print",
     "jmp", "brz", "brnz", "call", "proc", "casc", "acasc", "endc", "ret",
     "layout", "add", "sub", "mul", "div", "mod", "and", "or", "xor",
