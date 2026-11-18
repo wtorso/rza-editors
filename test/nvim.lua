@@ -68,6 +68,12 @@ vim.api.nvim_buf_set_lines(0, 0, -1, true, {"loop:"})
 vim.cmd("runtime! syntax/rza.vim")
 check_group(1, 1, "rzaLabel")
 
+vim.cmd("enew")
+vim.api.nvim_buf_set_lines(0, 0, -1, true,
+    {"proc convert(input_m: ro, result_m: rw):"})
+vim.cmd("runtime! syntax/rza.vim")
+check_group(1, 6, "rzaLabel")
+
 if #failures > 0 then
     for _, message in ipairs(failures) do
         vim.api.nvim_err_writeln(message)

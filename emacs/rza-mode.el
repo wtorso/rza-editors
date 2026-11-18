@@ -18,7 +18,7 @@
     ("\\_<field\\_>" . font-lock-constant-face)
     ("%r\\(?:[0-9]\\|1[0-5]\\)\\_>" . font-lock-variable-name-face)
     ("\\]\\.\\([a-z_][a-z0-9_]*\\)" 1 font-lock-builtin-face)
-    ("\\_<proc[ \t]+\\([a-z_][a-z0-9_]*\\):" 1 font-lock-function-name-face)
+    ("\\_<proc[ \t]+\\([a-z_][a-z0-9_]*\\)" 1 font-lock-function-name-face)
     ("^[ \t]*\\([a-z_][a-z0-9_]*\\):" 1 font-lock-function-name-face)
     ("\\(?:^\\|[^A-Za-z0-9_]\\)\\(-?0x[0-9A-Fa-f]+\\)\\_>" 1 font-lock-constant-face)
     ("\\(?:^\\|[^A-Za-z0-9_]\\)\\(-?[0-9]+\\)\\_>" 1 font-lock-constant-face)))

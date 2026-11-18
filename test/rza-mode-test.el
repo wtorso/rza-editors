@@ -70,6 +70,14 @@
    (should (eq (rza-test-face-at 10 9) 'font-lock-comment-face))
    (should (eq (rza-test-face-at 10 13) 'font-lock-comment-face))))
 
+(ert-deftest rza-test-proc-contract-name ()
+  (with-temp-buffer
+    (insert "proc convert(input_m: ro, result_m: rw):")
+    (rza-mode)
+    (font-lock-mode 1)
+    (font-lock-ensure)
+    (should (eq (get-text-property 6 'face) 'font-lock-function-name-face))))
+
 (ert-deftest rza-test-filetype-and-comment-configuration ()
   (should (equal (cdr (assoc "\\.rza\\'" auto-mode-alist)) 'rza-mode))
   (with-temp-buffer
