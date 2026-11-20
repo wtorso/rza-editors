@@ -35,14 +35,16 @@
 
 (defconst rza-test-typed-opcodes
   (append
-   (mapcan (lambda (base) (list (concat base ".i8") (concat base ".u8")))
+   (mapcan (lambda (base)
+             (mapcar (lambda (type) (concat base "." type))
+                     '("i8" "u8" "i16" "u16")))
            '("mov" "load" "store" "add" "sub" "mul" "inc" "dec"
              "cadd" "csub" "cmul" "cinc" "cdec" "and" "or" "xor"
              "div" "mod" "shl" "ushr"))
-   '("shr.i8" "slt.i8" "ult.u8")))
+   '("shr.i8" "slt.i8" "ult.u8" "shr.i16" "slt.i16" "ult.u16")))
 
 (ert-deftest rza-test-active-typed-opcodes-have-keyword-face ()
-  (should (= (length rza-test-typed-opcodes) 43))
+  (should (= (length rza-test-typed-opcodes) 86))
   (dolist (opcode rza-test-typed-opcodes)
     (with-temp-buffer
       (insert opcode)
@@ -54,9 +56,10 @@
                   'font-lock-keyword-face)))))
 
 (ert-deftest rza-test-inactive-typed-opcodes-have-no-keyword-suffix ()
-  (dolist (opcode '("load.i64" "store.i64" "mov.i64" "add.i64" "load.u16"
-                    "shr.u8" "slt.u8" "ult.i8" "ult" "loadb.u8" "crc32c.i8"
-                    "print.u8" "cvt.i8" "add.f32"))
+  (dolist (opcode '("load.i64" "store.i64" "mov.i64" "add.i64" "load.u32"
+                    "shr.u8" "slt.u8" "ult.i8" "shr.u16" "slt.u16" "ult.i16"
+                    "ult" "loadb.u8" "loadb.u16" "crc32c.i16" "print.u16"
+                    "cvt.i16" "add.f32"))
     (with-temp-buffer
       (insert opcode)
       (rza-mode)
@@ -71,6 +74,8 @@
    (should (eq (rza-test-face-at 1 18) 'font-lock-builtin-face))
    (should (eq (rza-test-face-at 1 29) 'font-lock-builtin-face))
    (should (eq (rza-test-face-at 2 20) 'font-lock-type-face))
+   (should (eq (rza-test-face-at 12 37) 'font-lock-builtin-face))
+   (should (eq (rza-test-face-at 12 54) 'font-lock-builtin-face))
    (should (not (eq (rza-test-face-at 1 7)
                     (rza-test-face-at 1 18))))))
 

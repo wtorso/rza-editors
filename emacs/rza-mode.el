@@ -16,11 +16,11 @@
 
 (defconst rza-typed-opcode-regexp
   (concat "\\_<" (regexp-opt rza-typed-opcode-bases)
-          "\\.\\(?:i8\\|u8\\)\\_>"
-          "\\|\\_<\\(?:shr\\|slt\\)\\.i8\\_>"
-          "\\|\\_<ult\\.u8\\_>"))
+          "\\.\\(?:i8\\|u8\\|i16\\|u16\\)\\_>"
+          "\\|\\_<\\(?:shr\\|slt\\)\\.\\(?:i8\\|i16\\)\\_>"
+          "\\|\\_<ult\\.\\(?:u8\\|u16\\)\\_>"))
 
-(defconst rza-scalar-types '("u8" "i8" "i64"))
+(defconst rza-scalar-types '("u8" "i8" "u16" "i16" "i64"))
 
 (defconst rza-font-lock-keywords
   `((,rza-typed-opcode-regexp . font-lock-keyword-face)
