@@ -9,3 +9,9 @@ proc tick:
 ret
 ; layout mov %r0
 mov %r16, 1
+layout Pair: tag:u8, signed:i8
+res pair, field, Pair
+med pair_m, pair, field
+mov.i8 %r1, 0xff
+load.i8 %r2, [pair_m + 0].signed
+store.u8 [pair_m + 0].tag, %r2

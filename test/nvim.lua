@@ -47,6 +47,8 @@ check_group(10, 3, "rzaComment")
 check_group(10, 10, "rzaComment")
 check_group(10, 14, "rzaComment")
 check(group_at(11, 5) == "", "%r16 must not have a syntax group")
+check_group(12, 18, "rzaScalarType")
+check_group(12, 30, "rzaScalarType")
 
 local opcodes = {
     "cav", "res", "med", "view", "raise", "decay", "probe", "load", "loadb",
@@ -61,6 +63,46 @@ vim.api.nvim_buf_set_lines(0, 0, -1, true, opcodes)
 vim.cmd("runtime! syntax/rza.vim")
 for line, opcode in ipairs(opcodes) do
     check_group(line, 1, "rzaKeyword")
+end
+
+local typed = {}
+local shared = {
+    "mov", "load", "store", "add", "sub", "mul", "inc", "dec",
+    "cadd", "csub", "cmul", "cinc", "cdec", "and", "or", "xor",
+    "div", "mod", "shl", "ushr",
+}
+for _, base in ipairs(shared) do
+    table.insert(typed, base .. ".i8")
+    table.insert(typed, base .. ".u8")
+end
+table.insert(typed, "shr.i8")
+table.insert(typed, "slt.i8")
+table.insert(typed, "ult.u8")
+check(#typed == 43, "typed matrix must contain 43 spellings")
+
+vim.cmd("enew")
+vim.api.nvim_buf_set_lines(0, 0, -1, true, typed)
+vim.cmd("runtime! syntax/rza.vim")
+for line, opcode in ipairs(typed) do
+    local suffix = string.find(opcode, ".", 1, true) + 1
+    check_group(line, 1, "rzaKeyword")
+    check_group(line, suffix, "rzaKeyword")
+end
+
+local inactive = {
+    "load.i64", "store.i64", "mov.i64", "add.i64", "load.u16",
+    "shr.u8", "slt.u8", "ult.i8", "ult", "loadb.u8", "crc32c.i8",
+    "print.u8", "cvt.i8", "add.f32",
+}
+vim.cmd("enew")
+vim.api.nvim_buf_set_lines(0, 0, -1, true, inactive)
+vim.cmd("runtime! syntax/rza.vim")
+for line, opcode in ipairs(inactive) do
+    local dot = string.find(opcode, ".", 1, true)
+    if dot then
+        check(group_at(line, dot + 1) ~= "rzaKeyword",
+            opcode .. " suffix must not be a typed keyword")
+    end
 end
 
 vim.cmd("enew")

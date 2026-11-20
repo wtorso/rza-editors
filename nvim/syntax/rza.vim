@@ -2,13 +2,15 @@ if exists("b:current_syntax")
   finish
 endif
 
-syn keyword rzaKeyword
-    \ cav res med view raise decay probe load loadb
-    \ mov store storeb slt inc dec await print
-    \ jmp brz brnz call proc casc acasc endc ret layout
-    \ add sub mul div mod and or xor shl shr ushr
-    \ cadd csub cmul cinc cdec crc32c
-syn keyword rzaScalarType u8 i64
+syn match rzaKeyword "\v<(cav|res|med|view|raise|decay|probe|load|loadb|store|storeb)(\.)@!>"
+syn match rzaKeyword "\v<(mov|slt|inc|dec|await|print)(\.)@!>"
+syn match rzaKeyword "\v<(jmp|brz|brnz|call|proc|casc|acasc|endc|ret|layout)(\.)@!>"
+syn match rzaKeyword "\v<(add|sub|mul|div|mod|and|or|xor|shl|shr|ushr)(\.)@!>"
+syn match rzaKeyword "\v<(cadd|csub|cmul|cinc|cdec|crc32c)(\.)@!>"
+syn match rzaScalarType "\v(^|[^A-Za-z0-9_.])\zs(u8|i8|i64)>"
+syn match rzaKeyword "\v<(mov|load|store|add|sub|mul|inc|dec|cadd|csub|cmul|cinc|cdec|and|or|xor|div|mod|shl|ushr)\.(i8|u8)>"
+syn match rzaKeyword "\v<(shr|slt)\.i8>"
+syn match rzaKeyword "\v<ult\.u8>"
 syn match rzaLayout "\v<[A-Z][A-Za-z0-9_]*>"
 syn keyword rzaConstant field
 syn match rzaRegister "\v[%%]r([0-9]|1[0-5])>"

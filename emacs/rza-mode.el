@@ -9,10 +9,22 @@
     "layout" "add" "sub" "mul" "div" "mod" "and" "or" "xor"
     "shl" "shr" "ushr" "cadd" "csub" "cmul" "cinc" "cdec" "crc32c"))
 
-(defconst rza-scalar-types '("u8" "i64"))
+(defconst rza-typed-opcode-bases
+  '("mov" "load" "store" "add" "sub" "mul" "inc" "dec"
+    "cadd" "csub" "cmul" "cinc" "cdec" "and" "or" "xor"
+    "div" "mod" "shl" "ushr"))
+
+(defconst rza-typed-opcode-regexp
+  (concat "\\_<" (regexp-opt rza-typed-opcode-bases)
+          "\\.\\(?:i8\\|u8\\)\\_>"
+          "\\|\\_<\\(?:shr\\|slt\\)\\.i8\\_>"
+          "\\|\\_<ult\\.u8\\_>"))
+
+(defconst rza-scalar-types '("u8" "i8" "i64"))
 
 (defconst rza-font-lock-keywords
-  `((,(regexp-opt rza-opcodes 'symbols) . font-lock-keyword-face)
+  `((,rza-typed-opcode-regexp . font-lock-keyword-face)
+    (,(regexp-opt rza-opcodes 'symbols) . font-lock-keyword-face)
     (,(regexp-opt rza-scalar-types 'symbols) . font-lock-builtin-face)
     ("\\<[A-Z][A-Za-z0-9_]*\\>" . font-lock-type-face)
     ("\\_<field\\_>" . font-lock-constant-face)

@@ -33,6 +33,38 @@
       (font-lock-ensure)
       (should (eq (get-text-property 1 'face) 'font-lock-keyword-face)))))
 
+(defconst rza-test-typed-opcodes
+  (append
+   (mapcan (lambda (base) (list (concat base ".i8") (concat base ".u8")))
+           '("mov" "load" "store" "add" "sub" "mul" "inc" "dec"
+             "cadd" "csub" "cmul" "cinc" "cdec" "and" "or" "xor"
+             "div" "mod" "shl" "ushr"))
+   '("shr.i8" "slt.i8" "ult.u8")))
+
+(ert-deftest rza-test-active-typed-opcodes-have-keyword-face ()
+  (should (= (length rza-test-typed-opcodes) 43))
+  (dolist (opcode rza-test-typed-opcodes)
+    (with-temp-buffer
+      (insert opcode)
+      (rza-mode)
+      (font-lock-mode 1)
+      (font-lock-ensure)
+      (should (eq (get-text-property 1 'face) 'font-lock-keyword-face))
+      (should (eq (get-text-property (length opcode) 'face)
+                  'font-lock-keyword-face)))))
+
+(ert-deftest rza-test-inactive-typed-opcodes-have-no-keyword-suffix ()
+  (dolist (opcode '("load.i64" "store.i64" "mov.i64" "add.i64" "load.u16"
+                    "shr.u8" "slt.u8" "ult.i8" "ult" "loadb.u8" "crc32c.i8"
+                    "print.u8" "cvt.i8" "add.f32"))
+    (with-temp-buffer
+      (insert opcode)
+      (rza-mode)
+      (font-lock-mode 1)
+      (font-lock-ensure)
+      (should (not (eq (get-text-property (length opcode) 'face)
+                       'font-lock-keyword-face))))))
+
 (ert-deftest rza-test-layout-and-scalar-types ()
   (rza-test-with-fixture
    (should (eq (rza-test-face-at 1 7) 'font-lock-type-face))
