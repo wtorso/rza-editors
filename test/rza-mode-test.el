@@ -37,15 +37,15 @@
   (append
    (mapcan (lambda (base)
              (mapcar (lambda (type) (concat base "." type))
-                     '("i8" "u8" "i16" "u16" "i32" "u32")))
+                     '("i8" "u8" "i16" "u16" "i32" "u32" "i64" "u64")))
            '("mov" "load" "store" "add" "sub" "mul" "inc" "dec"
              "cadd" "csub" "cmul" "cinc" "cdec" "and" "or" "xor"
              "div" "mod" "shl" "ushr"))
    '("shr.i8" "slt.i8" "ult.u8" "shr.i16" "slt.i16" "ult.u16"
-     "shr.i32" "slt.i32" "ult.u32")))
+     "shr.i32" "slt.i32" "ult.u32" "shr.i64" "slt.i64" "ult.u64")))
 
 (ert-deftest rza-test-active-typed-opcodes-have-keyword-face ()
-  (should (= (length rza-test-typed-opcodes) 129))
+  (should (= (length rza-test-typed-opcodes) 172))
   (dolist (opcode rza-test-typed-opcodes)
     (with-temp-buffer
       (insert opcode)
@@ -57,10 +57,11 @@
                   'font-lock-keyword-face)))))
 
 (ert-deftest rza-test-inactive-typed-opcodes-have-no-keyword-suffix ()
-  (dolist (opcode '("load.i64" "store.i64" "mov.i64" "add.i64" "load.u64"
-                    "shr.u8" "slt.u8" "ult.i8" "shr.u16" "slt.u16" "ult.i16"
-                    "shr.u32" "slt.u32" "ult.i32" "ult" "loadb.u8" "loadb.u16"
-                    "loadb.u32" "crc32c.i32" "print.i32" "cvt.i32" "add.f32"))
+  (dolist (opcode '("shr.u8" "slt.u8" "ult.i8" "shr.u16" "slt.u16" "ult.i16"
+                    "shr.u32" "slt.u32" "ult.i32" "shr.u64" "slt.u64" "ult.i64"
+                    "ult" "loadb.u8" "loadb.u16" "loadb.u32" "loadb.u64"
+                    "crc32c.i32" "print.i32" "cvt.i64" "cvt.u64"
+                    "add.f32" "add.f64"))
     (with-temp-buffer
       (insert opcode)
       (rza-mode)
@@ -79,6 +80,7 @@
    (should (eq (rza-test-face-at 12 54) 'font-lock-builtin-face))
    (should (eq (rza-test-face-at 18 21) 'font-lock-builtin-face))
    (should (eq (rza-test-face-at 18 31) 'font-lock-builtin-face))
+   (should (eq (rza-test-face-at 19 18) 'font-lock-builtin-face))
    (should (not (eq (rza-test-face-at 1 7)
                     (rza-test-face-at 1 18))))))
 

@@ -53,6 +53,7 @@ check_group(12, 38, "rzaScalarType")
 check_group(12, 55, "rzaScalarType")
 check_group(18, 21, "rzaScalarType")
 check_group(18, 31, "rzaScalarType")
+check_group(19, 19, "rzaScalarType")
 
 local opcodes = {
     "cav", "res", "med", "view", "raise", "decay", "probe", "load", "loadb",
@@ -75,17 +76,17 @@ local shared = {
     "cadd", "csub", "cmul", "cinc", "cdec", "and", "or", "xor",
     "div", "mod", "shl", "ushr",
 }
-local types = {"i8", "u8", "i16", "u16", "i32", "u32"}
+local types = {"i8", "u8", "i16", "u16", "i32", "u32", "i64", "u64"}
 for _, base in ipairs(shared) do
     for _, type in ipairs(types) do
         table.insert(typed, base .. "." .. type)
     end
 end
 for _, opcode in ipairs({"shr.i8", "slt.i8", "ult.u8", "shr.i16", "slt.i16", "ult.u16",
-        "shr.i32", "slt.i32", "ult.u32"}) do
+        "shr.i32", "slt.i32", "ult.u32", "shr.i64", "slt.i64", "ult.u64"}) do
     table.insert(typed, opcode)
 end
-check(#typed == 129, "typed matrix must contain 129 spellings")
+check(#typed == 172, "typed matrix must contain 172 spellings")
 
 vim.cmd("enew")
 vim.api.nvim_buf_set_lines(0, 0, -1, true, typed)
@@ -97,10 +98,10 @@ for line, opcode in ipairs(typed) do
 end
 
 local inactive = {
-    "load.i64", "store.i64", "mov.i64", "add.i64", "load.u64",
     "shr.u8", "slt.u8", "ult.i8", "shr.u16", "slt.u16", "ult.i16",
-    "shr.u32", "slt.u32", "ult.i32", "ult", "loadb.u8", "loadb.u16",
-    "loadb.u32", "crc32c.i32", "print.i32", "cvt.i32", "add.f32",
+    "shr.u32", "slt.u32", "ult.i32", "shr.u64", "slt.u64", "ult.i64",
+    "ult", "loadb.u8", "loadb.u16", "loadb.u32", "loadb.u64",
+    "crc32c.i32", "print.i32", "cvt.i64", "cvt.u64", "add.f32", "add.f64",
 }
 vim.cmd("enew")
 vim.api.nvim_buf_set_lines(0, 0, -1, true, inactive)
