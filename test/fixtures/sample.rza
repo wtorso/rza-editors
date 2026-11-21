@@ -15,3 +15,4 @@ med pair_m, pair, field
 mov.i8 %r1, 0xff
 load.i8 %r2, [pair_m + 0].signed
 store.u8 [pair_m + 0].tag, %r2
+layout Word: signed:i32, tail:u32

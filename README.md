@@ -9,7 +9,8 @@ access is needed.
 ## Features
 
 - All RZA instruction keywords.
-- Layout names, `u8`, `i8`, `u16`, `i16`, and `i64` scalar types, and `.field` selectors.
+- Layout names, `u8`, `i8`, `u16`, `i16`, `u32`, `i32`, and `i64` scalar types,
+  and `.field` selectors.
 - Registers from `%r0` through `%r15`.
 - Procedure and ordinary labels.
 - Decimal and hexadecimal integers, including negative values and array counts.
